@@ -1,0 +1,43 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+       
+
+        {
+            "name": "apppeople",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "apppeople (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "apppeople (release mode)",
+            "type": "dart",
+            "request": "launch",
+            "flutterMode": "release"
+        },
+
+        {
+            "name": "Flutter-All",
+            "preLaunchTask": "Flutter-Launch-All",
+            "type": "dart"
+        },
+        {
+            "name": "Flutter-Android A305G",
+            "preLaunchTask": "Flutter-Launch-Android-A305G",
+            "type": "dart"
+        },
+        {
+            "name": "Flutter- A107M",
+            "preLaunchTask": "Flutter-Launch-SM-A107M",
+            "type": "dart"
+        }
+    ]
+}

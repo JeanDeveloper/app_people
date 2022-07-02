@@ -1,0 +1,13 @@
+export 'package:apppeople/presentation/widgets/button_menu.dart';
+export 'package:apppeople/presentation/widgets/dropdown_button_crear_personal.dart';
+export 'package:apppeople/presentation/widgets/dropdown_button.dart';
+export 'package:apppeople/presentation/widgets/dropdown_validado_widget.dart';
+export 'package:apppeople/presentation/widgets/fondo_menu.dart';
+export 'package:apppeople/presentation/widgets/foto_avatar.dart';
+export 'package:apppeople/presentation/widgets/foto_material.dart';
+export 'package:apppeople/presentation/widgets/home_background.dart';
+export 'package:apppeople/presentation/widgets/image_widget.dart';
+export 'package:apppeople/presentation/widgets/input_text.dart';
+export 'package:apppeople/presentation/widgets/numpad_widget_v2.dart';
+export 'package:apppeople/presentation/widgets/radio_list_button.dart';
+export 'package:apppeople/presentation/widgets/scan_button.dart';
