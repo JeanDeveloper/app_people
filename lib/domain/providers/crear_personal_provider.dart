@@ -1,9 +1,25 @@
 import 'dart:io';
 
+import 'package:apppeople/data/services/cargos_service.dart';
+import 'package:apppeople/data/services/empresas_service.dart';
 import 'package:flutter/material.dart';
+
 
 class CrearPersonalProvider extends ChangeNotifier{
 
+  final TextEditingController searchEditingControllerEmpresa = TextEditingController();
+  final TextEditingController searchEditingControllerCargo = TextEditingController();
+
+  EmpresasProvider listaempresas = EmpresasProvider();
+  CargosProvider cargos = CargosProvider();
+
+  List<DropdownMenuItem<int>> itemsCargos = [];
+  List<DropdownMenuItem<int>> itemsEmpresas = [];
+
+  
+
+  //controla el listado de empresas.
+  // List<DropdownMenuItem<int>> get itemsEmpresas =>_itemsEmpresas; 
 
   //controla el step
   int _index = 0;
@@ -53,7 +69,6 @@ class CrearPersonalProvider extends ChangeNotifier{
 
   //VALOR DOCUMENTO
   String get nDocumento =>_nDocumento; 
-
   set nDocumento(String valor){
     _nDocumento = valor;
     notifyListeners();
@@ -163,6 +178,24 @@ class CrearPersonalProvider extends ChangeNotifier{
     return formKeys[index].currentState?.validate() ?? false;
   
   }
+
+  Future<List<DropdownMenuItem<int>>> initEmpresas(String codEmpresa, String nombreEmpresa)async{
+    if(itemsEmpresas.isEmpty){
+      itemsEmpresas = await listaempresas.getEmpresas(codEmpresa, nombreEmpresa); //se rellena la lista que necesito posteriormente
+      notifyListeners();
+    }
+    return itemsEmpresas;
+  }
+
+  Future<List<DropdownMenuItem<int>>> initCargos(String codCargo, String nombreCargo)async{
+    if(itemsCargos.isEmpty){
+      itemsCargos = await cargos.getCargos(codCargo, nombreCargo); //se rellena la lista que necesito posteriormente
+      notifyListeners();
+    }
+    return itemsCargos;
+  }
+
+
 
 
 }

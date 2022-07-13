@@ -1,10 +1,8 @@
-import 'package:apppeople/domain/providers/radio_list_providers.dart';
 import 'package:apppeople/presentation/pages/ingresos/widgets/widgets.dart';
 import 'package:apppeople/presentation/pages/movimientos/widgets/app_bar.dart';
 import 'package:apppeople/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
-import 'package:provider/provider.dart';
 
 
 class MovimientosPage extends StatefulWidget {

@@ -29,6 +29,7 @@ class IngresosTemplateBody extends StatelessWidget {
 
         width: double.infinity,
         height: double.infinity,
+        // color: Colors.red,
         child: Stack(
 
           children: [

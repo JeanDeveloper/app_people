@@ -1,4 +1,5 @@
 import 'package:apppeople/domain/providers/crear_personal_provider.dart';
+import 'package:apppeople/domain/providers/login_global.dart';
 import 'package:apppeople/presentation/pages/personal/widgets/widgets.dart';
 import 'package:apppeople/presentation/utils/styles.dart';
 import 'package:apppeople/theme/theme.dart';
@@ -15,11 +16,12 @@ class CrearPersonalPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final parameterPersonal = ModalRoute.of(context)!.settings.arguments ;
+    final globalProvider = Provider.of<LoginGlobalProvider>(context);
 
     return MultiProvider(
 
       providers: [
-        ChangeNotifierProvider(create: ((context)=> CrearPersonalProvider())),
+        ChangeNotifierProvider(create: ((context)=> CrearPersonalProvider()))
       ],
 
       child: SafeArea(

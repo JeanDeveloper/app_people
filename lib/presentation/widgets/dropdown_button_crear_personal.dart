@@ -31,10 +31,10 @@ class DropdownButtonPersonal extends StatelessWidget {
       width: size.width*0.57,
 
       child: DropdownButtonFormField<int>(
-    
+
         hint: hintText!=null ? Text(hintText!, style: TextStyle(fontSize: size.width*0.030)) : null ,
         style:  TextStyle(color: Colors.black, fontSize:  size.width*0.030),
-        decoration: inputDecorationDropDown(),
+        decoration: inputDecorationDropDownPersonal(),
         validator: onvalidator,
         onChanged: onchanged,
         isExpanded: true,

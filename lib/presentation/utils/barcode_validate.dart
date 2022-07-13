@@ -1,3 +1,4 @@
+import 'package:apppeople/domain/providers/login_global.dart';
 import 'package:apppeople/domain/providers/numpad_provider.dart';
 import 'package:apppeople/domain/repositories/validaciones/consutar_movimiento.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
@@ -7,6 +8,7 @@ import 'package:provider/provider.dart';
 barcodeScan(BuildContext context, String barcode){
 
   final numpadProvider = Provider.of<NumPadProvider>(context, listen: false);
+  final loginProvider= Provider.of<LoginGlobalProvider>(context);
 
   if(barcode == '-1'){
 
@@ -31,10 +33,8 @@ barcodeScan(BuildContext context, String barcode){
 
     Future.delayed(const Duration(seconds: 2));
     
-    consultarMovimiento(context, numpadProvider.number, '2774');
+    consultarMovimiento(context, numpadProvider.number, loginProvider.codServicio);
     
   }
-
-
 
 }

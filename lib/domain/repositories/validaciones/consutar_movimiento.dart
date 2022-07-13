@@ -4,9 +4,8 @@ import 'package:apppeople/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
 
-void consultarMovimiento(BuildContext context, String documento, String codServicio )async{
+void consultarMovimiento(BuildContext context, String documento, String codServicio ) async {
 
-   
   CustomProgressDialog progressDialog = CustomProgressDialog(context,blur: 10);
   progressDialog.setLoadingWidget(CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(AppTheme.lighTheme.primaryColor)));
   progressDialog.show();
@@ -51,7 +50,7 @@ void consultarMovimiento(BuildContext context, String documento, String codServi
 
             child: const Text("Si"),
 
-            onPressed: ()=>Navigator.pushNamed(context, 'crear_personal', arguments: {
+            onPressed: ()=>Navigator.pushReplacementNamed(context, 'crear_personal', arguments: {
               "dni_persona" : documento,
               "cod_servicio" : codServicio,
             }), 

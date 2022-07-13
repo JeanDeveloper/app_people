@@ -22,10 +22,16 @@ InputDecoration inputDecorationDatos()=> const  InputDecoration(
 
 );
 
-
 InputDecoration inputDecorationDropDown()=> const InputDecoration(
 
-  contentPadding: EdgeInsets.only(left: 10),
+  contentPadding: EdgeInsets.only(bottom: 10),
+
+);
+
+
+InputDecoration inputDecorationDropDownPersonal()=> const InputDecoration(
+
+  contentPadding: EdgeInsets.only(left:10,bottom: 10),
 
   enabledBorder:  OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -34,18 +40,19 @@ InputDecoration inputDecorationDropDown()=> const InputDecoration(
     )
   ),
 
-  errorBorder: UnderlineInputBorder(
-
-    borderRadius: BorderRadius.all(Radius.circular(5)),
-    borderSide: BorderSide(color: Colors.red)
-  
-  ),
-
   focusedBorder:  OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(5)),
     borderSide: BorderSide(
       color: Colors.blue
     )
   ),
+
+  errorBorder:  OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(5)),
+    borderSide: BorderSide(
+      color: Colors.red
+    )
+  ),
+
 
 );

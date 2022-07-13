@@ -1,12 +1,11 @@
-import 'package:apppeople/domain/providers/numpad_provider.dart';
 import 'package:apppeople/domain/providers/radio_list_providers.dart';
 import 'package:apppeople/domain/providers/register_form_provider.dart';
 import 'package:apppeople/presentation/pages/register/widgets/widgets.dart';
 import 'package:apppeople/presentation/utils/barcode_validate.dart';
 import 'package:apppeople/presentation/widgets/widgets.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 
@@ -63,19 +62,12 @@ class RegisterPage extends StatelessWidget {
 
                     children: [
               
-                      //INICIO
-                      ButtonMenu(
-                        icon: Icons.home_outlined,
-                        text: 'INICIO', 
-                        onpressed:()=> Navigator.pushNamed(context, 'home'),
-                      ),
 
-                      SizedBox(width: size.width*0.1),
               
                       //SCANNER
                       ButtonMenu(
 
-                        icon: Icons.scanner_outlined,
+                        icon: FontAwesomeIcons.barcode,
                         text: 'ESCANEAR', 
 
                         onpressed:()async{
@@ -88,6 +80,16 @@ class RegisterPage extends StatelessWidget {
                         },
 
                       ),
+
+                      SizedBox(width: size.width*0.1),
+
+                      //INICIO
+                      ButtonMenu(
+                        icon: FontAwesomeIcons.house,
+                        text: 'INICIO', 
+                        onpressed:()=> Navigator.pushNamed(context, 'home'),
+                      ),
+
                     
                     ],
 

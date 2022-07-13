@@ -8,6 +8,7 @@ class DropdownButtonWidget extends StatelessWidget {
   final String? hintText;
   final void Function(int?) onchanged;
   final String Function(int?)? onvalidator;
+  final int? value;
 
   const DropdownButtonWidget({
     super.key, 
@@ -15,7 +16,7 @@ class DropdownButtonWidget extends StatelessWidget {
     this.hintText, 
     required this.onchanged,
     this.onvalidator,
-    
+    this.value,
 
   });
   
@@ -23,7 +24,9 @@ class DropdownButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final size = MediaQuery.of(context).size;
+
     return Container(
                     
       padding: EdgeInsets.symmetric(horizontal: size.width*0.024),
@@ -40,13 +43,14 @@ class DropdownButtonWidget extends StatelessWidget {
       child: DropdownButtonFormField<int>(
 
         validator: onvalidator,
-
         hint: hintText!=null ? Text(hintText!, style: TextStyle(fontSize: size.width*0.030)) : null ,
         items: items, 
         onChanged: onchanged,
         style:  TextStyle(color: Colors.black, fontSize:  size.width*0.030),
         decoration: inputDecorationDropDown(),
         isExpanded: true,
+
+        value: value,
      
       ),
 

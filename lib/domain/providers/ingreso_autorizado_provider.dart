@@ -1,5 +1,3 @@
-import 'package:apppeople/domain/models/consulta_personal_model.dart';
-import 'package:apppeople/domain/models/movimiento_create_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,11 +16,11 @@ class IngresoAutorizadoProvider extends ChangeNotifier{
   String cod_empresa = '';
   String empresa = '';
   String cargo = ''; 
-  String cod_autorizante = '';
+  int cod_autorizante = 0;
   String _autorizante = ''; 
-  String cod_motivo = '';
+  int cod_motivo = 0;
   String _motivo = '';
-  String cod_area = '';
+  int cod_area = 0;
   String _area_acceso = '';
   String _guia = '';
   String _material_valor = '';
@@ -52,9 +50,9 @@ class IngresoAutorizadoProvider extends ChangeNotifier{
   }
 
   // METODOS PARA LA VARIABLE AUTORIZANTE
-  String get codautorizante => cod_autorizante;
+  int get codautorizante => cod_autorizante;
 
-  set codautorizante(value) {
+  set codautorizante(int value) {
     cod_autorizante = value;
     notifyListeners();
   }
@@ -70,9 +68,9 @@ class IngresoAutorizadoProvider extends ChangeNotifier{
 
 
   // METODOS PARA LA VARIABLE MOTIVO
-  String get codmotivo => cod_motivo;
+  int get codmotivo => cod_motivo;
 
-  set codmotivo ( value) {
+  set codmotivo ( int value ) {
     cod_motivo = value;
     notifyListeners();
   }
@@ -87,9 +85,9 @@ class IngresoAutorizadoProvider extends ChangeNotifier{
   }
 
  // METODOS PARA LA VARIABLE AREA ACCESO
-  String get codarea => cod_area;
+  int get codarea => cod_area;
 
-  set codarea(value) {
+  set codarea(int value) {
     cod_area = value;
     notifyListeners();
   }

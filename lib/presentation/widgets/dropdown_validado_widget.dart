@@ -35,7 +35,7 @@ class DropdownValidadoWidget extends StatelessWidget {
         style: const TextStyle(color: Colors.blue,fontSize: 15),
         isExpanded: true,     
         items: dropdownItemsAutorizantesDisponibles, 
-        onChanged: (value)=>ingresoProvider.autorizante=value
+        onChanged: (value)=>ingresoProvider.autorizante=value!
       
       ),
     );

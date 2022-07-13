@@ -1,10 +1,14 @@
 import 'package:apppeople/domain/helpers/get_responsive_text.dart';
+import 'package:apppeople/domain/models/consulta_personal_model.dart';
 import 'package:apppeople/domain/models/movimientos_model.dart';
 import 'package:apppeople/domain/helpers/get_image.dart';
+import 'package:apppeople/domain/providers/login_global.dart';
+import 'package:apppeople/domain/repositories/validaciones/consutar_movimiento.dart';
 import 'package:apppeople/presentation/utils/styles.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
+import 'package:provider/provider.dart';
 
 class MovimientosTiles extends StatelessWidget {
 
@@ -83,6 +87,7 @@ class _ListTileMovimiento extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final globalProvider  = Provider.of<LoginGlobalProvider>(context);
 
     return ListTile(
       style: ListTileStyle.list,
@@ -113,8 +118,7 @@ class _ListTileMovimiento extends StatelessWidget {
           Container(
 
             width: size.width*0.31,
-            // height: size.height*0.058,
-            // color: Colors.red,
+
             
             child: Column(
             
@@ -201,36 +205,31 @@ class _ListTileMovimiento extends StatelessWidget {
 
       ),
 
-      trailing:  GestureDetector( 
-        onTap: ()async{
-          await NDialog(
-            dialogStyle: DialogStyle(titleDivider: true, backgroundColor: Colors.white),
-            title: const Text("Movimiento",  style: TextStyle(color: Colors.black)),
-            content: const Text("¿Estas Seguro que quieres registar la salida?", style: TextStyle(color: Colors.black)),  
-            actions: <Widget>[
-              TextButton(child: const Text("Si"),onPressed: ()async{
+      trailing: (movimiento.fechaSalida == '')
+        ? GestureDetector( 
+          onTap: ()async{
+            print(movimiento.fechaSalida);
+            await NDialog(
+              dialogStyle: DialogStyle(titleDivider: true, backgroundColor: Colors.white),
+              title: const Text("Movimiento",  style: TextStyle(color: Colors.black)),
+              content: const Text("¿Estas Seguro que quieres registar la salida?", style: TextStyle(color: Colors.black)),  
+              actions: <Widget>[
+                TextButton(
+                  child: const Text("Si"),
+                  onPressed: ()async{
 
-                ProgressDialog progressDialog = ProgressDialog(context);
+                    consultarMovimiento(context, movimiento.dni!, globalProvider.codServicio);
 
-                progressDialog.setTitle(const Text("Cargando"));
-                progressDialog.setMessage(const Text("Espere por Favor, Mientras se realiza la accion"));
-                progressDialog.show();
+                  }
+                ),
+                TextButton(child: const Text("No"),onPressed: ()=> Navigator.pop(context)),
+              ],
+            ).show(context);
+          },
+          child: Text('DAR SALIDA', style: TextStyle(color: Colors.green, fontSize: size.width*0.03))
+        )
+        :null,
 
-                await Future.delayed(const Duration(seconds: 3));
-
-                progressDialog.dismiss();
-
-                Navigator.pushNamed(context, 'home');
-
-
-              }),
-              TextButton(child: const Text("No"),onPressed: ()=> Navigator.pop(context)),
-            ],
-          ).show(context);
-        },
-        child: Text('DAR SALIDA', style: TextStyle(color: Colors.green, fontSize: size.width*0.03))
-      ),
-      
       contentPadding: const EdgeInsets.symmetric(horizontal: 10),
     
     );

@@ -1,4 +1,6 @@
 import 'package:apppeople/domain/helpers/show_snackbar_awesome.dart';
+import 'package:apppeople/domain/providers/login_global.dart';
+import 'package:apppeople/domain/providers/login_provider.dart';
 import 'package:apppeople/domain/providers/radio_list_providers.dart';
 import 'package:apppeople/domain/providers/register_form_provider.dart';
 import 'package:apppeople/domain/repositories/validaciones/consutar_movimiento.dart';
@@ -136,6 +138,7 @@ class _DNIFormRegister extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
+    final loginProvider = Provider.of<LoginGlobalProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
 
@@ -155,7 +158,7 @@ class _DNIFormRegister extends StatelessWidget {
 
             }else{
 
-              consultarMovimiento(context, value, '2774');
+              consultarMovimiento(context, value, loginProvider.codServicio);
 
             }
 
@@ -179,6 +182,8 @@ class _CarnetFormRegister extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
+
+    final loginProvider = Provider.of<LoginGlobalProvider>(context);
     
     return Column(
 
@@ -198,7 +203,7 @@ class _CarnetFormRegister extends StatelessWidget {
 
             }else{
 
-              consultarMovimiento(context, value, '2774');
+              consultarMovimiento(context, value, loginProvider.codServicio);
 
             }
 

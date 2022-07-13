@@ -23,15 +23,14 @@ class IngresoDenegadoPage extends StatelessWidget {
       
       registrarFunction: ()async{
 
-      print(consulta.nombresPersona);
+      
         await NDialog(
           
           dialogStyle: DialogStyle(titleDivider: true, backgroundColor: Colors.grey),
           title: const Text("!Alerta!",),
-          content: const Text(" ¿Quieres registrarlo de todas maneras? ", style: TextStyle(color: Colors.black)),  
+          content: const Text("¿Quieres registrarlo de todas maneras?", style: TextStyle(color: Colors.black)),  
           
           actions: <Widget>[
-            TextButton(child: const Text("NO"),onPressed: () => Navigator.pop(context)),
             TextButton(child: const Text("SI"),onPressed: () async {
               
               CustomProgressDialog progressDialog = CustomProgressDialog(context,blur: 10);
@@ -42,9 +41,11 @@ class IngresoDenegadoPage extends StatelessWidget {
 
               progressDialog.dismiss();
 
-              Navigator.pushNamed(context, 'ingreso_validado');
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacementNamed(context, 'ingreso_validado', arguments: consulta);
 
             }),
+            TextButton(child: const Text("NO"),onPressed: () => Navigator.pop(context)),
           ],
 
         ).show(context);
@@ -53,6 +54,9 @@ class IngresoDenegadoPage extends StatelessWidget {
 
 
       },
+
     );
+
   }
+
 }

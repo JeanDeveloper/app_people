@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class MovimientosProvider extends ChangeNotifier{
-
-  final String _url = '192.168.10.58:8000';
-
-  final bool cargando     = false;
+  
+  final String _url   = '192.168.10.58:8000';
+  
+  final bool cargando = false;
 
   List<MovimientoModel> movimientosSelected = [];
 
@@ -28,10 +28,7 @@ class MovimientosProvider extends ChangeNotifier{
     
     final resp = await http.get( 
       url, 
-      headers:  {
-        HttpHeaders.contentTypeHeader: "application/json;  charset=utf-8",
-
-      }
+      headers:  {HttpHeaders.contentTypeHeader: "application/json;  charset=utf-8"}
     );
 
     final decodedData = json.decode(utf8.decode(resp.bodyBytes));
@@ -41,7 +38,6 @@ class MovimientosProvider extends ChangeNotifier{
     return movimientos.items;
     
   }
-
 
   //PETICION POST
   Future<int> _procesarRespuestaPost(Uri url, ConsultaModel consulta) async{
@@ -55,23 +51,20 @@ class MovimientosProvider extends ChangeNotifier{
 
         'codigo_personal' : '${consulta.codigoPersona}',
         'codigo_servicio' : '${consulta.codigoServicio}',
-        'codigo_mov_siguiente': '${consulta.codigoMovSgt}',
-        'codigo_motivo' : '${consulta.codigoMotivo}',
+        'codigo_tipo_movimiento': '${consulta.codigoMovSgt}',
+        'codigo_tipo_motivo' : '${consulta.codigoMotivo}',
         'codigo_empresa':  '${consulta.codigoEmpresa}',
-        'codigo_autorizadox' : '${consulta.codigoAutorizante}',
+        'autorizado_por' : '${consulta.codigoAutorizante}',
+        'creado_por' : 'TABLET_ ${consulta.codigoServicio}',
         'codigo_area': '${consulta.codigoArea}',
-        'num_pase': '${consulta.nroPase}',
-        'tipo_persona': '${consulta.tipoPersona}'
 
       }),
 
     );
 
     if ( resp.statusCode == 201 ){
-      print('se registro el movimiento correctamente');
-      final movimientoId = resp.body;
-      print(movimientoId);
       return 1;
+
 
     }else{
 
@@ -82,8 +75,7 @@ class MovimientosProvider extends ChangeNotifier{
 
   }
 
-
-  //consulta de movimientos
+  //OBTENER DE MOVIMIENTOS
   Future<List<MovimientoModel>> getMovimientos( String idServicio,  String tipoMovimiento, {String tipoPersonal= "0"}) async {
 
     final url = Uri.http( _url, 'movimientos/', {
@@ -109,7 +101,7 @@ class MovimientosProvider extends ChangeNotifier{
     
   }
 
-
+  //CONSULTAR UN MOVIMIENTO
   Future<List<MovimientoModel>> getSearchMovimientos(String query)async{
 
     final List<MovimientoModel> movimientosFiltered = [];
@@ -130,8 +122,7 @@ class MovimientosProvider extends ChangeNotifier{
 
   }
 
-
-  //registrar un movimiento
+  //REGISTRAR UN MOVIMIENTO
   Future<int> registerMovimiento(ConsultaModel consulta)async{
 
     final url = Uri.http(_url, 'movimientos/');
@@ -140,14 +131,6 @@ class MovimientosProvider extends ChangeNotifier{
 
     return movimientoId;
 
-
   }
-
-
-
-
-
-
-
 
 }

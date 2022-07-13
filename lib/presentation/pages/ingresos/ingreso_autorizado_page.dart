@@ -22,7 +22,9 @@ class IngresoAutorizadoPage extends StatelessWidget {
     return MultiProvider(
 
       providers: [
+
         ChangeNotifierProvider(create: ((context) => IngresoAutorizadoProvider())),
+      
       ],
       
       child: IngresoAutorizadoBody(consulta: consulta),
@@ -70,20 +72,16 @@ class IngresoAutorizadoBody extends StatelessWidget {
                 progressDialog.setLoadingWidget(CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(AppTheme.lighTheme.primaryColor)));
                 progressDialog.show();
 
-                // await Future.delayed(const Duration(seconds: 3));//metodo para guardar el movimiento.
-
                 //TODO:funcion para registrar el movimiento.
 
                 final idMovimiento = await movimientoProvider.registerMovimiento(consulta);
 
                 print(idMovimiento);
 
-
-
                 progressDialog.dismiss();
 
                 // ignore: use_build_context_synchronously
-                showSnackBarAwesome(context, 'EXITO', 'Se registro el movimiento para el personal ${consulta.docPersona} satisfactoriamente', ContentType.success);
+                showSnackBarAwesome(context, 'EXITO', 'Se registro el movimiento para el personal ${consulta.docPersona} con exito', ContentType.success);
 
                 // ignore: use_build_context_synchronously
                 Navigator.pushReplacementNamed(context, 'home');

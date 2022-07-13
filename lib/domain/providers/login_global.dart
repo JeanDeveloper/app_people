@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 class LoginGlobalProvider extends ChangeNotifier{
 
-  late String _codEmpresa = '25866';
-  late String _nombreTipoServicio = '';
+  late String _codCliente = '25866';
+  late String _nombreTipoServicio = 'PLANTA';
   late String _nombreServicio = 'TERMINAL DE ALMACENAMIENTO';
   late String _codServicio = '2774';
 
 
 
   //METODOS PARA LA VARIABLE EMPRESA
-  String get codEmpresa => _codEmpresa;
+  String get codCliente => _codCliente;
 
-  set codEmpresa(String valor){
-    _codEmpresa = valor;
+  set codCliente(String valor){
+    _codCliente = valor;
     notifyListeners();
   }
 

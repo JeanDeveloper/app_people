@@ -26,10 +26,7 @@ class MovimientosModel {
 }
 
 
-
-
 class MovimientoModel {
-
 
     String? codMovimiento;
     String? nombres;

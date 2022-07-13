@@ -1,3 +1,5 @@
+export 'package:apppeople/presentation/pages/consultas/consulta_home_page.dart';
+
 export 'package:apppeople/presentation/pages/consultas/consulta_page.dart';
 export 'package:apppeople/presentation/pages/consultas/consulta_page.dart';
 export 'package:apppeople/presentation/pages/home/home_page.dart';
@@ -14,3 +16,4 @@ export 'package:apppeople/presentation/pages/movimientos/movimientos_planta_tab_
 export 'package:apppeople/presentation/pages/personal/crear_personal_page.dart';
 export 'package:apppeople/presentation/pages/register/register_page.dart';
 export 'package:apppeople/presentation/pages/salidas/salida_page.dart';
+

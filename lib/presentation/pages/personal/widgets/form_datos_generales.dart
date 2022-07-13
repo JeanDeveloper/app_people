@@ -51,7 +51,7 @@ class _DNIRegister extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final personalProvider = Provider.of<CrearPersonalProvider>(context);    
+    final personalProvider = Provider.of<CrearPersonalProvider>(context, listen: false);    
 
     return Container(
 
@@ -145,10 +145,6 @@ class _DNIRegister extends StatelessWidget {
                   
                 ),
 
-
-
-              
-
               ],
       
             ),
@@ -174,7 +170,7 @@ class _ImageCardPersonalRegister extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final personalProvider = Provider.of<CrearPersonalProvider>(context);
+    final personalProvider = Provider.of<CrearPersonalProvider>(context, listen: false);
     final size = MediaQuery.of(context).size;
 
     return ClipRRect(

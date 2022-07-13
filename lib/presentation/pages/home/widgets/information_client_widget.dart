@@ -38,7 +38,7 @@ class InformacionCliente extends StatelessWidget {
             SizedBox(height: size.height*0.015),
             
             Text(
-              'ARTEFACTO NAVAL',
+              loginGlobal.nombreTipoServicio,
               style: AppTheme.lighTheme.textTheme.headline1
             ),// NOMBRE DEL TIPO DE SERVICIO - dinamico
 

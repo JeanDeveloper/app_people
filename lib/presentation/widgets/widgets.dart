@@ -2,6 +2,7 @@ export 'package:apppeople/presentation/widgets/button_menu.dart';
 export 'package:apppeople/presentation/widgets/dropdown_button_crear_personal.dart';
 export 'package:apppeople/presentation/widgets/dropdown_button.dart';
 export 'package:apppeople/presentation/widgets/dropdown_validado_widget.dart';
+export 'package:apppeople/presentation/widgets/dropdown2_button_crear_personal_.dart';
 export 'package:apppeople/presentation/widgets/fondo_menu.dart';
 export 'package:apppeople/presentation/widgets/foto_avatar.dart';
 export 'package:apppeople/presentation/widgets/foto_material.dart';

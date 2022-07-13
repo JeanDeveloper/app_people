@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 
 class IngresoValidadoProvider extends ChangeNotifier{
 
-  String dni = '76216238';
-  String nombre = 'JEAN CARLO CHUNGA';
-  String cargo = 'OPERADOR'; 
-  String empresa = 'SOLMAR SECURITY SAC';
+  int _autorizante = 0;
   
-  String _autorizante = 'GLADYS SILVA';
-  String _motivo = 'REUNION';
-  String _area_acceso = 'SISTEMAS';
+  int _motivo = -1;
+  int _area_acceso = -1;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
@@ -24,26 +20,26 @@ class IngresoValidadoProvider extends ChangeNotifier{
 
 
   // METODOS PARA LA VARIABLE AUTORIZANTE
-  String get autorizante => _autorizante;
+  int get autorizante => _autorizante;
 
-  set autorizante (value) {
+  set autorizante (int value) {
     _autorizante = value;
     notifyListeners();
   }
 
 
   // METODOS PARA LA VARIABLE MOTIVO
-  String get motivo => _motivo;
+  int get motivo => _motivo;
 
-  set motivo ( value) {
+  set motivo ( int value) {
     _motivo = value;
     notifyListeners();
   }
 
   // METODOS PARA LA VARIABLE AREA ACCESO
-  String get area_acceso => _area_acceso;
+  int get area_acceso => _area_acceso;
 
-  set area_acceso ( value) {
+  set area_acceso ( int  value) {
     _area_acceso = value;
     notifyListeners();
   }

@@ -1,40 +1,18 @@
-import 'package:apppeople/domain/providers/login_global.dart';
-import 'package:apppeople/domain/providers/numpad_provider.dart';
 import 'package:apppeople/presentation/pages/home/widgets/widgets.dart';
 import 'package:apppeople/presentation/widgets/widgets.dart';
 import 'package:apppeople/theme/theme.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
-
 
 class HomePage extends StatelessWidget {
 
-  const HomePage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
 
-    return MultiProvider(
-
-      providers: [
-        ChangeNotifierProvider(create:(context) => LoginGlobalProvider()),
-
-      ],
-
-      child: _HomePageState()
-    );
-    
-  }
-}
-
-class _HomePageState extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+
 
     return Scaffold(
 
@@ -42,6 +20,7 @@ class _HomePageState extends StatelessWidget {
 
         width: double.infinity,
         height: double.infinity,
+        
         child: Stack(
 
           children:  [
@@ -73,10 +52,13 @@ class _HomePageState extends StatelessWidget {
       ),
 
     );
+
   }
+
 }
 
 class _HomeHeader extends StatelessWidget {
+
   const _HomeHeader({
     Key? key,
   }) : super(key: key);
@@ -89,25 +71,28 @@ class _HomeHeader extends StatelessWidget {
       width: double.infinity,
       height: 200,
       child: SafeArea(
+
         child: Column(
+
           mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
-            Text('APP PEOPLE', style: AppTheme.lighTheme.textTheme.headline1 ),
+
+            Text('PEOPLE', style: AppTheme.lighTheme.textTheme.headline1 ),
       
             SizedBox(height: size.height*0.05),
       
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                'Bienvenido a: ', 
-                style: AppTheme.lighTheme.textTheme.headline3?.copyWith(color: Colors.amber)
-              ),
+              child: Text('BIENVENIDO A: ', style: AppTheme.lighTheme.textTheme.headline3?.copyWith(color: Colors.amber)),
             ),
       
             SizedBox(height: size.height*0.02),
+
           ],
       
         ),
+
       ),
 
     );
@@ -133,7 +118,7 @@ class _IconMenu extends StatelessWidget {
 
         //REGISTRAR
         ButtonMenu(
-          icon: FontAwesomeIcons.user, 
+          icon: FontAwesomeIcons.person, 
           text: 'REGISTRAR',
           onpressed: ()=> Navigator.pushNamed(context, 'register') ,
         ),
@@ -142,16 +127,25 @@ class _IconMenu extends StatelessWidget {
 
         //MOVIMIENTOS
         ButtonMenu(
-          icon: Icons.people_outline, 
+          icon: FontAwesomeIcons.peopleGroup, 
           text: 'MOVIMIENTOS',
           onpressed: ()=>Navigator.pushNamed(context, 'movimientosv2'),
         ),
 
         SizedBox(width:  size.width*0.1),
 
+        //CONSULTAR
+        ButtonMenu(
+          icon: FontAwesomeIcons.magnifyingGlass, 
+          text: 'CONSULTAR',
+          onpressed: ()=>Navigator.pushNamed(context, 'consulta_home'),
+        ),
+
+        SizedBox(width:  size.width*0.1),
+
         //SALIR
         ButtonMenu(
-          icon: Icons.exit_to_app_outlined, 
+          icon: FontAwesomeIcons.arrowRightFromBracket, 
           text: 'SALIR',
           onpressed: ()=>SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
         ),

@@ -1,6 +1,8 @@
 import 'package:apppeople/data/services/movimientos_services.dart';
 import 'package:apppeople/domain/models/movimientos_model.dart';
 import 'package:apppeople/domain/helpers/get_image.dart';
+import 'package:apppeople/domain/providers/login_global.dart';
+import 'package:apppeople/domain/repositories/validaciones/consutar_movimiento.dart';
 import 'package:apppeople/presentation/utils/styles.dart';
 import 'package:apppeople/theme/theme.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -9,31 +11,38 @@ import 'package:ndialog/ndialog.dart';
 import 'package:provider/provider.dart';
 
 
-class SearchDelegateProvider  extends SearchDelegate{
+class SearchDelegateProvider extends SearchDelegate{
+  
+  @override
+  TextInputType? get keyboardType => TextInputType.number;
+
 
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
       textTheme: const TextTheme(
         headline6: TextStyle( color: Colors.white),
+        
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: AppTheme.lighTheme.primaryColor,
       ),
-      inputDecorationTheme: const InputDecorationTheme(
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(color: Colors.yellow.withOpacity(0.5)),
         border: InputBorder.none,
       ),
     );
   }
 
   @override
-  String? get searchFieldLabel => 'Buscar Movimiento';
+  String? get searchFieldLabel => 'Ingrese el numero de documento';
 
   @override
   TextStyle? get searchFieldStyle => const TextStyle(
     color: Colors.grey
   );
-  
+
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -70,7 +79,41 @@ class SearchDelegateProvider  extends SearchDelegate{
   @override
   Widget buildResults(BuildContext context) {
 
-    return const Text('buildResults');
+    final searchProvider = Provider.of<MovimientosProvider>(context, listen: false);
+
+    final size = MediaQuery.of(context).size;
+
+    if ( query.isEmpty ){
+
+      return _emptyContainer();
+    
+    }
+
+    return FutureBuilder(
+
+      future: searchProvider.getSearchMovimientos(query),
+      
+      builder: (context, AsyncSnapshot<List<MovimientoModel>> snapshot){
+
+        if (!snapshot.hasData)return _emptyContainer();
+
+        if(snapshot.data!.isEmpty ) return _emptyContainer();
+
+        final movimientos = snapshot.data;
+
+        return ListView.separated(
+
+          separatorBuilder: ( _ , int i) => const Divider(color: Colors.black, indent: 10, endIndent: 10),
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(vertical: size.height*0.023, horizontal:size.width*0.024),
+          itemCount: movimientos!.length,
+          itemBuilder: (context, index) => _MovimientoTile(movimiento:movimientos[index]),
+
+        );
+  
+      }
+  
+    );
   
   }
 
@@ -127,13 +170,13 @@ class _MovimientoTile extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
+    final globalProvider = Provider.of<LoginGlobalProvider>(context);
     
     return ListTile(
-      style: ListTileStyle.list,
 
+      style: ListTileStyle.list,
       contentPadding: EdgeInsets.symmetric(horizontal: size.height*0.0116),
       leading: Icon(Icons.account_circle, size: size.width*0.1, color: (movimiento.sexo == 'M')? Colors.blue :  Colors.pinkAccent),
-      
       title: Row(
 
         children: [
@@ -141,111 +184,134 @@ class _MovimientoTile extends StatelessWidget {
           Container(
             width: size.width*0.40,
             child: AutoSizeText(movimiento.nombres!,style: styleLetterpersonalmovimientotitle(), overflow: TextOverflow.ellipsis, maxLines: 1,)
-          ),
-        
+          ),        
           Text(movimiento.dni!, style: styleLetterpersonalmovimientotitle()),
-    
+
         ],
 
       ),
 
-      subtitle: Padding(
+      subtitle: Row(
+        children: [
 
-        padding: EdgeInsets.only( top:size.height*0.0116 ),
+          Container(
         
-        child: Row(
-          
-          children: [
-            
-            Container(
-          
-              width: size.width*0.31,
-              // height: size.height*0.058,
-              alignment: Alignment.topLeft,
-              child: Column(
-                
-                crossAxisAlignment: CrossAxisAlignment.start,
-                
-                children: [
-                  AutoSizeText(movimiento.cargo!, minFontSize: 6,  maxFontSize: 12 , style: styleLetterpersonalmovimientosubtitle(), overflow: TextOverflow.ellipsis, maxLines: 2,),
-                  AutoSizeText(movimiento.empresa!, minFontSize: 4, maxFontSize: 12 , style: styleLetterpersonalmovimientosubtitle(), overflow: TextOverflow.ellipsis, maxLines: 3,)
-                ]
-          
-              ),
-          
+            width: size.width*0.31,
+            alignment: Alignment.topLeft,
+
+            child: Column(
+              
+              crossAxisAlignment: CrossAxisAlignment.start,
+              
+              children: [
+                AutoSizeText(movimiento.cargo!, minFontSize: 6,  maxFontSize: 12 , style: styleLetterpersonalmovimientosubtitle(), overflow: TextOverflow.ellipsis, maxLines: 2,),
+                AutoSizeText(movimiento.empresa!, minFontSize: 4, maxFontSize: 12 , style: styleLetterpersonalmovimientosubtitle(), overflow: TextOverflow.ellipsis, maxLines: 3,)
+              ]
+        
             ),
-          
-            SizedBox(width: size.width*0.15),
-            
-            AutoSizeText(movimiento.fechaMovimiento!.toString().substring(11, 16), style: TextStyle(color: Colors.red, fontSize: size.width*0.03), minFontSize: 6, maxFontSize: 12)
-          
-          ],
-          
-        ),
-      
-      ),
-      
-      trailing: IconButton(
-    
-        icon: Icon(Icons.camera_alt_outlined, size:  size.width*0.06,),
-    
-        onPressed: ()async{
-    
-          await NDialog(
-            
-            dialogStyle: DialogStyle(
-              backgroundColor: Colors.grey,
-            ),
-            
-            title: Text('FOTO DE ${movimiento.nombres}', style: const TextStyle(color: Colors.black)),
-            
-            content: Container(
-    
-              margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-              width: size.width*0.05,
-              height: size.height*0.35,
-                              
-              child:ClipRRect(
-    
-                borderRadius: BorderRadius.circular(20),
-    
-                child: FutureBuilder(
-                  
-    
-                  future: getImage(movimiento.pathImage),
-    
-                  builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) { 
-    
-                    if(snapshot.hasData){
+        
+          ),
+
+
+          SizedBox(width: size.width*0.03),
+
+          IconButton(
+              
+            icon: Icon(Icons.camera_alt_outlined, size:  size.width*0.06,),
+        
+            onPressed: ()async{
+        
+              await NDialog(
+                
+                dialogStyle: DialogStyle(
+                  backgroundColor: Colors.grey,
+                ),
+                
+                title: Text('FOTO DE ${movimiento.nombres}', style: const TextStyle(color: Colors.black)),
+                
+                content: Container(
+        
+                  margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  width: size.width*0.05,
+                  height: size.height*0.35,
+                                  
+                  child:ClipRRect(
+        
+                    borderRadius: BorderRadius.circular(20),
+        
+                    child: FutureBuilder(
                       
-                      return Container(
-    
-                        child: snapshot.data,
-                      
-                      );
-    
-    
-                    }else{
-    
-                      return const Center(child: CircularProgressIndicator());
-                    }
-    
-                  }
-    
+        
+                      future: getImage(movimiento.pathImage),
+        
+                      builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) { 
+        
+                        if(snapshot.hasData){
+                          
+                          return Container(
+        
+                            child: snapshot.data,
+                          
+                          );
+        
+        
+                        }else{
+        
+                          return const Center(child: CircularProgressIndicator());
+                        }
+        
+                      }
+        
+                    )
+        
+                  )
+              
                 )
-    
-              )
-          
-            )
-    
-          ).show(context);
-    
-        }, 
-    
+        
+              ).show(context);
+        
+            }, 
+              
+          ),
+
+          SizedBox(width: size.width*0.05),
+
+          AutoSizeText(movimiento.fechaMovimiento!.toString().substring(11, 16), style: TextStyle(color: Colors.red, fontSize: size.width*0.03), minFontSize: 6, maxFontSize: 12)
+        
+        ],
       ),
+      
+      trailing: (movimiento.fechaSalida == '')
+        ? GestureDetector( 
+          onTap: ()async{
+            print(movimiento.fechaSalida);
+            await NDialog(
+              dialogStyle: DialogStyle(titleDivider: true, backgroundColor: Colors.white),
+              title: const Text("Movimiento",  style: TextStyle(color: Colors.black)),
+              content: const Text("¿Estas Seguro que quieres registar la salida?", style: TextStyle(color: Colors.black)),  
+              actions: <Widget>[
+                TextButton(
+                  child: const Text("Si"),
+                  onPressed: ()async{
 
-      onTap: ()=> Navigator.pushNamed(context, 'consultas'),
+                    consultarMovimiento(context, movimiento.dni!, globalProvider.codServicio);
 
+                  }
+                ),
+                TextButton(child: const Text("No"),onPressed: ()=> Navigator.pop(context)),
+              ],
+            ).show(context);
+          },
+          child: Text('DAR SALIDA', style: TextStyle(color: Colors.green, fontSize: size.width*0.03))
+        )
+        : null,
+
+
+        
+
+
+
+      
     );
 
   }

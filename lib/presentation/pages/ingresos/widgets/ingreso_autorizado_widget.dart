@@ -50,13 +50,11 @@ class IngresoAutorizadoWidget extends StatelessWidget {
 
                     //if es propio el autorizante será por defecto el que viene con la consulta, caso contrario se tendrá que elegir entre los que se haga en la peticion http de autorizantes
 
-                    // items: [
-                    //   DropdownMenuItem(value:consulta.codigoAutorizante, child: Text(consulta.autorizante!))
-                    // ], 
-                    hintText: (consulta.codigoAutorizante== 0) ? ' ' : 'AUTORIZANTES DISPONIBLES',
-                    items: (consulta.codigoAutorizante== 0)? []: [DropdownMenuItem(value: consulta.codigoAutorizante ,child: Text(consulta.autorizante!))], 
-                    onchanged: (value) =>  (consulta.codigoAutorizante== 0)? null : ingresoProvider.codautorizante=value  , 
-                    
+                    items: (consulta.codigoAutorizante== 0) 
+                      ? [] 
+                      : [DropdownMenuItem(value: consulta.codigoAutorizante ,child: Text(consulta.autorizante!))], 
+                    onchanged: (value) =>  (consulta.codigoAutorizante== 0) ? null : ingresoProvider.codautorizante=value!, 
+                    value: consulta.codigoAutorizante,
                   )
 
                 
@@ -75,11 +73,12 @@ class IngresoAutorizadoWidget extends StatelessWidget {
                   Text('MOTIVO:  ', style: styleCrearPersonaltextForm()),
 
                   DropdownButtonWidget(
-
-                    items: [DropdownMenuItem(value:consulta.codigoMotivo, child: Text(consulta.motivo!))],
-                    hintText: 'MOTIVOS DISPONIBLES', 
-                    onchanged: (value) => ingresoProvider.codmotivo=value,
-                    
+                    // hintText: 'MOTIVOS DISPONIBLES', 
+                    items: (consulta.codigoMotivo == -1)
+                      ?[]
+                      :[DropdownMenuItem(value: consulta.codigoMotivo, child: Text(consulta.motivo!))],
+                    onchanged: (value) => (consulta.codigoMotivo== -1) ? null : ingresoProvider.codmotivo=value!,
+                    value: consulta.codigoMotivo,
                   ),
               
                 ],
@@ -98,10 +97,13 @@ class IngresoAutorizadoWidget extends StatelessWidget {
 
                   DropdownButtonWidget(
 
-                    items: [DropdownMenuItem(value:consulta.codigoArea, child: Text(consulta.area!))],
-                    hintText: 'AREAS DISPONIBLES', 
-                    onchanged: (value) =>ingresoProvider.codarea = value,
-                    
+                    // hintText: 'AREAS DISPONIBLES', 
+
+                    items:(consulta.codigoArea == 0)
+                      ? []
+                      :[DropdownMenuItem(value:consulta.codigoArea, child: Text(consulta.area!))],
+                    onchanged: (value) =>(consulta.codigoArea== 0) ? null : ingresoProvider.codarea = value!,
+                    value: consulta.codigoArea,
                   ),
               
                 ],

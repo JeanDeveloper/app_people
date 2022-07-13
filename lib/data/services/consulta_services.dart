@@ -12,7 +12,6 @@ class ConsultaProvider {
 
   late ConsultaModel consulta;
 
-
   Future<ConsultaModel> _procesarRespuestaGet(Uri url) async{
 
     final resp  = await http.get(

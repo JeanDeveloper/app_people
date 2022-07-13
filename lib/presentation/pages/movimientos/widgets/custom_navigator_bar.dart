@@ -1,9 +1,12 @@
 import 'package:apppeople/domain/providers/movimientos_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class CustomNavigationBar extends StatelessWidget {
+
   const CustomNavigationBar({ Key? key }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 
@@ -21,13 +24,17 @@ class CustomNavigationBar extends StatelessWidget {
       items: const <BottomNavigationBarItem>[
 
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
+
+          icon: FaIcon(FontAwesomeIcons.house),
           label: 'DENTRO DE LA PLANTA'
+
         ),
 
         BottomNavigationBarItem(
-          icon: Icon(Icons.rule_sharp),
+
+          icon: FaIcon(FontAwesomeIcons.readme),
           label: 'MOVIMIENTOS DEL DIA'
+
         ),
 
       ]

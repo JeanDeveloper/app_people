@@ -1,4 +1,5 @@
 import 'package:apppeople/data/services/movimientos_services.dart';
+import 'package:apppeople/domain/providers/login_global.dart';
 import 'package:apppeople/domain/providers/login_provider.dart';
 import 'package:apppeople/domain/providers/movimientos_provider.dart';
 import 'package:apppeople/domain/providers/numpad_provider.dart';
@@ -31,12 +32,13 @@ class MyApp extends StatelessWidget {
 
       providers: [
 
-        ChangeNotifierProvider(create: ((context)=> RegisterFormProvider())),
-        ChangeNotifierProvider(create: ((context)=> LoginProvider())),
-        ChangeNotifierProvider(create: ((context)=> MovimientosProvider())),
-        ChangeNotifierProvider(create: ((context)=> MovimientosPageProvider())),
-        ChangeNotifierProvider(create: ((context)=> RadioListProvider())),      
-        ChangeNotifierProvider(create: ((context)=> NumPadProvider())),
+        ChangeNotifierProvider(create: (context)=> RegisterFormProvider()),
+        ChangeNotifierProvider(create: (context)=> LoginProvider()),
+        ChangeNotifierProvider(create: (context)=> MovimientosProvider()),
+        ChangeNotifierProvider(create: (context)=> MovimientosPageProvider()),
+        ChangeNotifierProvider(create: (context)=> RadioListProvider()),      
+        ChangeNotifierProvider(create: (context)=> NumPadProvider()),
+        ChangeNotifierProvider(create: (context)=> LoginGlobalProvider()),
 
       ],  
 
